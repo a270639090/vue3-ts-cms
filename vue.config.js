@@ -27,5 +27,13 @@ module.exports = {
   },
   devServer: {
     open: true
+  },
+  pages: {
+    index: {
+      // page入口
+      entry: "./src/main.ts",
+      // 模板来源
+      template: "./public/index.html"
+    }
   }
 }
