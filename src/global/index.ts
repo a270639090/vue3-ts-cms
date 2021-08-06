@@ -8,8 +8,8 @@ import {
   ElAutocomplete,
   ElAvatar,
   ElBacktop,
-  ElBadge,
-} from 'element-plus'
+  ElBadge
+} from "element-plus"
 
 const components = [
   ElButton,
@@ -22,7 +22,7 @@ const components = [
   ElBadge
 ]
 
-export function  registerApp(app: App): void {
+export function registerApp(app: App): void {
   for (const cpn of components) {
     app.component(cpn.name, cpn)
   }
