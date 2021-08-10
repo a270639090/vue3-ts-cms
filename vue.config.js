@@ -28,6 +28,7 @@ module.exports = {
   devServer: {
     open: true
   },
+  publicPath: "./",
   pages: {
     index: {
       // page入口

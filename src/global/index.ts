@@ -1,29 +1,7 @@
+// 全局注册方法
 import { App } from "@vue/runtime-core"
-import "element-plus/lib/theme-chalk/base.css"
-import {
-  ElButton,
-  ElTable,
-  ElAlert,
-  ElAside,
-  ElAutocomplete,
-  ElAvatar,
-  ElBacktop,
-  ElBadge
-} from "element-plus"
+import registerElement from "./register-element"
 
-const components = [
-  ElButton,
-  ElTable,
-  ElAlert,
-  ElAside,
-  ElAutocomplete,
-  ElAvatar,
-  ElBacktop,
-  ElBadge
-]
-
-export function registerApp(app: App): void {
-  for (const cpn of components) {
-    app.component(cpn.name, cpn)
-  }
+export function globalRegister(app: App): void {
+  app.use(registerElement)
 }
