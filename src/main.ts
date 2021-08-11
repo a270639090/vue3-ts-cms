@@ -1,13 +1,15 @@
 import { createApp } from "vue"
 import { globalRegister } from "./global"
-import "./service/axios_demo"
-
+import hyRequset from "./service"
 import App from "./App.vue"
 
 import router from "./router"
 import store from "./store"
 
-console.log(process.env.VUE_APP_BASE_URL)
+hyRequset.request({
+  url: "/home/multidata",
+  method: "GET"
+})
 
 const app = createApp(App)
 // 组件注册函数
