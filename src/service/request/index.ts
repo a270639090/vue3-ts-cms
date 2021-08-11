@@ -9,7 +9,7 @@ class HYrequset {
     this.instance = axios.create(config)
   }
 
-  request(config: AxiosRequestConfig) {
+  request(config: AxiosRequestConfig): void {
     this.instance.request(config).then((res) => {
       console.log(res, "11111")
     })
