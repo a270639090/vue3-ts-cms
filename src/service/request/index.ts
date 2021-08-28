@@ -25,17 +25,33 @@ class HYrequset {
     this.instance = axios.create(config)
     this.interceptors = config.interceptors
 
+    // 从config中取出的拦截器是对应的实例拦截器
     // 请求拦截
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch
     )
-
     // 响应拦截
     this.instance.interceptors.response.use(
       this.interceptors?.responseInterceptor,
       this.interceptors?.responseInterceptorCatch
     )
+
+    // 所有实例的拦截器
+    this.instance.interceptors.request.use((config) => {
+      console.log("所有实例的拦截器, 请求成功拦截");
+      return config
+    }, (err) => {
+      console.log("所有实例都有的拦截器: 请求失败拦截");
+      return err
+    })
+    this.instance.interceptors.response.use((result) => {
+      console.log("所有实例的响应成拦截")
+      return result
+    },(err) => {
+      console.log("所有实例的响应失败拦截")
+      return err
+    })
   }
 
   request(config: HYRequestConfig): void {
