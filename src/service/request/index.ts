@@ -1,6 +1,9 @@
 import axios from "axios"
 import { AxiosInstance } from "axios"
-import { HYRequestInterceptor, HYRequestConfig } from "./type"
+import {
+  HYRequestInterceptor,
+  HYRequestConfig
+} from "./type"
 
 import { ElLoading } from "element-plus"
 import { ILoadingInstance } from "element-plus/lib/el-loading/src/loading.type"
@@ -80,11 +83,12 @@ class HYrequset {
     )
   }
 
-  request<T>(config: HYRequestConfig): Promise<T> {
+  request<T>(config: HYRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 单个请求对config的处理
       if (config.interceptors?.requestInterceptor) {
-        config = config.interceptors?.requestInterceptor(config)
+        config =
+          config.interceptors?.requestInterceptor(config)
       }
 
       // 是否需要显示loading
@@ -97,7 +101,8 @@ class HYrequset {
         .then((res) => {
           // 单个请求对数据的处理
           if (config.interceptors?.responseInterceptor) {
-            res = config.interceptors?.responseInterceptor(res)
+            res =
+              config.interceptors?.responseInterceptor(res)
           }
 
           // 恢复默认值,不然将一直处于上次结果
@@ -113,19 +118,19 @@ class HYrequset {
     })
   }
 
-  get<T>(config: HYRequestConfig): Promise<T> {
+  get<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "GET" })
   }
 
-  post<T>(config: HYRequestConfig): Promise<T> {
+  post<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "POST" })
   }
 
-  delete<T>(config: HYRequestConfig): Promise<T> {
+  delete<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "DELETE" })
   }
 
-  patch<T>(config: HYRequestConfig): Promise<T> {
+  patch<T>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PATCH" })
   }
 }

@@ -1,4 +1,7 @@
-import { createRouter, createWebHashHistory } from "vue-router"
+import {
+  createRouter,
+  createWebHashHistory
+} from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
 
 // type 声明是个类型 不是函数

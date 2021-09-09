@@ -1,22 +1,47 @@
 {
   "compilerOptions": {
+    // 不清楚查官网 https://www.typescriptlang.org/tsconfig
+
+    // 目标代码(ts -> js(es5/6/7))
     "target": "esnext",
+    // 目标代码需要使用的模块化方案(commonjs require/module.exports/es module import/export)
     "module": "esnext",
+    // 严格模式
     "strict": true,
+    // 是否对JSX进行处理,进行什么样的处理  preserve--保留
+    // babel 已经做了处理了
     "jsx": "preserve",
+    // 辅助的导入功能
     "importHelpers": true,
+    // 按照node的方式去解析模块 import "index -> .js || .json || .node"
     "moduleResolution": "node",
+    // 跳过一些库的类型监测(axios -> 类型/ lodash --> @type/lodash / 其他第三方库)
+    // 为 true 跳过
     "skipLibCheck": true,
+    // export default/module.exports = {}
+    // es module 和 common.js 能不混用
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    // 要不要生成映射文件 (ts -> js)
     "sourceMap": true,
+    // 文件路径在解析时, 基本Url
     "baseUrl": ".",
+    // 指定具体要解析使用的类型, 当不传时 由target指定
     "types": ["webpack-env"],
+    // 路径解析
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "components/*": ["src/components/*"]
     },
+    // 可以指定在项目中可以使用哪里库的类型(Proxy/Window/Document)
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
   "exclude": ["node_modules"]
 }

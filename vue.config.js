@@ -21,7 +21,9 @@ module.exports = {
   // }
   // 配置3. 链式编程
   chainWebpack: (config) => {
-    config.resolve.alias.set("@", resolve(__dirname, "src")).set("components", "@/components")
+    config.resolve.alias
+      .set("@", resolve(__dirname, "src"))
+      .set("components", "@/components")
   },
   devServer: {
     open: true
