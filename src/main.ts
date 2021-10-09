@@ -44,9 +44,4 @@ hyRequset
     method: "GET",
     showLoading: true
   })
-  .then((res) => {
-    console.log(res)
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
+  .then()
