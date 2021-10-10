@@ -22,7 +22,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       payload: IAccount
     ) {
       const accountResult = await accountLogin(payload)
-      console.log(accountResult)
+      console.log(accountResult, commit)
     }
     // phoneLoginActive({ commit }, payload: any) {
     //   console.log("phoneLoginActive", payload)
