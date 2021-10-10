@@ -20,13 +20,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue"
-import { rules } from "../config/account-config"
 import { ElForm } from "element-plus"
+import { defineComponent, reactive, ref } from "vue"
+import { useStore } from "vuex"
+
+import { rules } from "../config/account-config"
 import Local from "@/untils/cache"
 
 export default defineComponent({
   setup() {
+    const store = useStore()
+
     const account = reactive({
       name: Local.getLocal("name") ?? "",
       password: Local.getLocal("password") ?? ""
@@ -48,6 +52,10 @@ export default defineComponent({
           }
 
           // 2.开始进行登录验证
+          console.log(store)
+          store.dispatch("loginModule/accountLoginActive", {
+            ...account
+          })
         }
       })
     }
