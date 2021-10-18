@@ -1,19 +1,11 @@
 <template>
   <div class="login-account">
-    <el-form
-      ref="formRef"
-      :model="account"
-      :rules="rules"
-      label-width="60px"
-    >
+    <el-form ref="formRef" :model="account" :rules="rules" label-width="60px">
       <el-form-item label="账号" prop="name">
         <el-input v-model="account.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input
-          show-password
-          v-model="account.password"
-        ></el-input>
+        <el-input show-password v-model="account.password"></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -52,7 +44,6 @@ export default defineComponent({
           }
 
           // 2.开始进行登录验证
-          console.log(store)
           store.dispatch("loginModule/accountLoginActive", {
             ...account
           })

@@ -1,15 +1,14 @@
-import {
-  createRouter,
-  createWebHashHistory
-} from "vue-router"
+import { createRouter, createWebHashHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
+
+import LocalCache from "@/untils/cache"
 
 // type 声明是个类型 不是函数
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/login"
+    redirect: "/main"
   },
   {
     path: "/login",
@@ -24,6 +23,15 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   routes,
   history: createWebHashHistory()
+})
+
+router.beforeEach((to) => {
+  if (to.path !== "/login") {
+    const token = LocalCache.getLocal("token")
+    if (!token) {
+      return "/login"
+    }
+  }
 })
 
 export default router
