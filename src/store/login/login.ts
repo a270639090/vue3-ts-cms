@@ -7,6 +7,7 @@ import { IAccount } from "../../service/login/type"
 
 import { accountLogin, requestUserInfoById, requestUserMenusByRoleId } from "@/service/login/login"
 import LocalCache from "@/untils/cache"
+import { mapMEnusToRouters } from "@/untils/map-menu"
 
 // Module 中的<S>为 state-类型 <R>为根 store 中 state 类型
 const loginModule: Module<ILoginState, IRootState> = {
@@ -28,6 +29,17 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus) {
       state.userMenus = userMenus
+
+      // userMenus => routers
+      const routes = mapMEnusToRouters(userMenus)
+
+      // routers(route) => router.main.children[]
+      routes.forEach((route) => {
+        // addRoute(parentName: string | symbol, route: RouteRecordRaw): () => void
+        // parentName	string | symbol	父路由记录，route 应该被添加到的位置
+        // route	RouteRecordRaw	要添加的路由记录
+        router.addRoute("main", route)
+      })
     }
   },
   actions: {
