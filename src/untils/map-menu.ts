@@ -1,5 +1,7 @@
 import { RouteRecordRaw } from "vue-router"
 
+let firstMenu: any = null
+
 // 映射路由与全部菜单关系
 // 将菜单权限有的部分才进行动态路由注册
 export function mapMEnusToRouters(userMenus: any[]): RouteRecordRaw[] {
@@ -21,6 +23,10 @@ export function mapMEnusToRouters(userMenus: any[]): RouteRecordRaw[] {
       if (menu.type === 2) {
         const route = allRoutes.find((route) => route.path === menu.url)
         if (route) routes.push(route)
+        if (!firstMenu) {
+          firstMenu = menu
+          console.log(firstMenu, "111")
+        }
       } else {
         _recurseGetRoute(menu.children)
       }
@@ -31,3 +37,20 @@ export function mapMEnusToRouters(userMenus: any[]): RouteRecordRaw[] {
 
   return routes
 }
+
+export function pathMapToMenu(userMenus: any[], currentPath: string): any {
+  // type 1 -- 一级菜单  2 -- 二级菜单
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      if (findMenu) return findMenu
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      return menu
+    }
+  }
+}
+
+// export 可以先定义再导出
+// export 会直接导出
+
+export { firstMenu }

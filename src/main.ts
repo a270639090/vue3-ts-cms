@@ -12,10 +12,11 @@ import store from "./store"
 const app = createApp(App)
 // 组件注册函数
 app.use(globalRegister)
-app.use(router)
 app.use(store)
-app.mount("#app")
 setupStore()
+app.use(router)
+
+app.mount("#app")
 
 // hyRequset.request({
 //   url: "/home/multidata",

@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
 
 import LocalCache from "@/untils/cache"
+import { firstMenu } from "@/untils/map-menu"
 
 // type 声明是个类型 不是函数
 
@@ -39,6 +40,10 @@ router.beforeEach((to) => {
     if (!token) {
       return "/login"
     }
+  }
+
+  if (to.path === "/main") {
+    return firstMenu.url
   }
 })
 
