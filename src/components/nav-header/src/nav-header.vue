@@ -2,7 +2,9 @@
   <div class="nav-header">
     <i class="fold-menu" :class="isFold ? 'el-icon-s-unfold' : 'el-icon-s-fold'" @click="handleFoldClick"></i>
     <div class="content">
-      <div>面包屑</div>
+      <div>
+        <LxBreadcrumb :breadcrumbs="breadcrumbs" />
+      </div>
       <div>
         <UserInfo />
       </div>
@@ -12,16 +14,32 @@
 
 <script lang="ts">
 import UserInfo from "./user-info.vue"
-
-import { defineComponent, ref } from "vue"
+import { computed, defineComponent, ref } from "vue"
+import { useRoute } from "vue-router"
+import { useStore } from "@/store"
+import { LxBreadcrumb } from "@/base-ui/breadcrumb"
+import { pathMapToBreadcrumb } from "@/untils/map-menu"
 
 export default defineComponent({
   components: {
-    UserInfo
+    UserInfo,
+    LxBreadcrumb
   },
   emits: ["foldChange"],
   setup(props, { emit }) {
     const isFold = ref(false)
+
+    const breadcrumbs = computed(() => {
+      const store = useStore()
+      const userMenus = store.state.loginModule.userMenus
+
+      const route = useRoute()
+      const currentPath = route.path
+
+      return pathMapToBreadcrumb(userMenus, currentPath)
+    })
+
+    console.log(breadcrumbs.value)
 
     const handleFoldClick = () => {
       isFold.value = !isFold.value
@@ -29,6 +47,7 @@ export default defineComponent({
     }
     return {
       isFold,
+      breadcrumbs,
       handleFoldClick
     }
   }

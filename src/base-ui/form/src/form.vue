@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue"
 
-import { IFormItems } from "./types"
+import { IFormItems } from "../types"
 
 export default defineComponent({
   props: {

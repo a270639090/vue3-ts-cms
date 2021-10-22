@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 
-import LxForm from "@/base-ui"
+import LxForm from "@/base-ui/form"
 import { searchFormConfig } from "./config/search.config"
 
 export default defineComponent({

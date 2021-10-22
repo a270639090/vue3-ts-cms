@@ -33,7 +33,9 @@ import {
   ElDropdownItem,
   ElRow,
   ElCol,
-  ElDatePicker
+  ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem
 } from "element-plus"
 
 const components = [
@@ -67,7 +69,9 @@ const components = [
   ElDropdownItem,
   ElRow,
   ElCol,
-  ElDatePicker
+  ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem
 ]
 
 export default function (app: App): void {
