@@ -23,7 +23,7 @@ import { useStore } from "@/store"
 export default defineComponent({
   setup() {
     const store = useStore()
-    const userName = computed(() => store.state.loginModule.userInfo.name)
+    const userName = computed(() => store.state.login.userInfo.name)
     return {
       userName
     }

@@ -1,19 +1,19 @@
 <template>
   <div class="user">
-    <LxForm v-bind="searchFormConfig" />
+    <page-search :searchFormConfig="searchFormConfig" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import { pageSearch } from "@/components/page-search"
 
-import LxForm from "@/base-ui/form"
 import { searchFormConfig } from "./config/search.config"
 
 export default defineComponent({
   name: "user",
   components: {
-    LxForm
+    pageSearch
   },
   setup() {
     return {
@@ -23,4 +23,4 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less"></style>

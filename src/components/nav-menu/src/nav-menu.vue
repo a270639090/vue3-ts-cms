@@ -59,7 +59,7 @@ export default defineComponent({
   setup() {
     // store
     const store = useStore()
-    const userMenus = computed(() => store.state.loginModule.userMenus)
+    const userMenus = computed(() => store.state.login.userMenus)
 
     // router
     const router = useRouter()

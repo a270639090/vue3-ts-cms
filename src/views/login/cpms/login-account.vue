@@ -44,7 +44,7 @@ export default defineComponent({
           }
 
           // 2.开始进行登录验证
-          store.dispatch("loginModule/accountLoginActive", {
+          store.dispatch("login/accountLoginActive", {
             ...account
           })
         }

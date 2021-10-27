@@ -31,7 +31,7 @@ export default defineComponent({
 
     const breadcrumbs = computed(() => {
       const store = useStore()
-      const userMenus = store.state.loginModule.userMenus
+      const userMenus = store.state.login.userMenus
 
       const route = useRoute()
       const currentPath = route.path
