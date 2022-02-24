@@ -3,7 +3,14 @@
     <page-search :searchFormConfig="searchFormConfig" />
 
     <div class="content">
-      <LxTable :propList="propList" :tableData="userList" />
+      <LxTable :propList="propList" :tableData="userList">
+        <template #status="{ row }">
+          <el-tag>{{ row.enable ? "启用" : "停用用" }}</el-tag>
+        </template>
+        <template #createAt="{ row }">
+          <el-tag>{{ $filters.formatUtcString(row.createAt) }}</el-tag>
+        </template>
+      </LxTable>
     </div>
   </div>
 </template>
@@ -42,9 +49,9 @@ export default defineComponent({
       { prop: "name", label: "用户名", minWidth: "100" },
       { prop: "realname", label: "真实姓名", minWidth: "100" },
       { prop: "cellphone", label: "手机号码", minWidth: "100" },
-      { prop: "enable", label: "状态", minWidth: "100" },
-      { prop: "createAt", label: "创建时间", minWidth: "250" },
-      { prop: "updateAt", label: "更新时间", minWidth: "250" }
+      { prop: "enable", label: "状态", minWidth: "100", slotName: "status" },
+      { prop: "createAt", label: "创建时间", minWidth: "250", slotName: "createAt" },
+      { prop: "updateAt", label: "更新时间", minWidth: "250", slotName: "updateAt" }
     ]
 
     return {
