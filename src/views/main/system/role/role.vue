@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { computed, defineComponent } from "vue"
 import { useStore } from "@/store"
 
 import PageSearch from "@/components/page-search"
@@ -23,7 +23,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const roleList = store.state.system.roleList
+    const roleList = computed(() => store.state.system.roleList)
     return {
       roleList,
       pageContentConfig,
