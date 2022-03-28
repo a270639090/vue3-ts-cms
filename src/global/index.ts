@@ -1,5 +1,5 @@
 // 全局注册方法
-import { App } from "@vue/runtime-core"
+import { App } from "vue"
 import registerElement from "./register-element"
 import { registerProperties } from "./register-properties"
 
