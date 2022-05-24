@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <LxTable :tableData="tableData" @selectionChange="selectionChange" v-bind="pageContentConfig">
+    <LxTable :tableData="pageListData" @selectionChange="selectionChange" v-bind="pageContentConfig">
       <!-- :title="title"
       :propList="propList"
       :isShowIndexColum="isShowIndexColum"
@@ -53,6 +53,7 @@ export default {
   },
   setup(props) {
     const store = useStore()
+
     store.dispatch("system/getPageListActive", {
       pageName: props.pageName,
       queryInfo: {
@@ -61,7 +62,13 @@ export default {
       }
     })
 
-    return {}
+    const pageListData = store.getters[`system/pageListData`](props.pageName)
+
+    console.log(pageListData, "pageListData")
+
+    return {
+      pageListData
+    }
   }
 }
 </script>

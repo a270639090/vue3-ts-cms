@@ -8,17 +8,17 @@ const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
   state() {
     return {
-      userList: [],
+      usersList: [],
       userCount: 0,
       roleList: [],
       roleCount: 0
     }
   },
   mutations: {
-    changeUserList(state, list: any[]) {
-      state.userList = list
+    changeUsersList(state, list: any[]) {
+      state.usersList = list
     },
-    changeUserCount(state, listCount: number) {
+    changeUsersCount(state, listCount: number) {
       state.userCount = listCount
     },
     changeRoleList(state, list: any[]) {
@@ -28,36 +28,51 @@ const systemModule: Module<ISystemState, IRootState> = {
       state.roleCount = listCount
     }
   },
+  getters: {
+    pageListData(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}List`]
+        // switch (pageName) {
+        //   case "users":
+        //     return state.usersList
+        //   case "role":
+        //     return state.roleList
+        // }
+      }
+    }
+  },
   actions: {
     async getPageListActive({ commit }, payload) {
-      console.log(payload, "payload")
-
       // 1. 获取对应Url
       const pageName = payload.pageName
-      let pageUrl = ""
-      switch (pageName) {
-        case "user":
-          pageUrl = "/users/list"
-          break
-        case "role":
-          pageUrl = "/role/list"
-          break
-      }
+      const pageUrl = `/${pageName}/list`
+      // switch (pageName) {
+      //   case "users":
+      //     pageUrl = "/users/list"
+      //     break
+      //   case "role":
+      //     pageUrl = "/role/list"
+      //     break
+      // }
 
       // 2. 对页面发送请求
       const pageResult = await getPageListData(pageUrl, payload.queryInfo)
       const { list, listCount } = pageResult.data
+      const changePageName = pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
+
       // 3. 将对应数据存储到不同变量
-      switch (pageName) {
-        case "user":
-          commit("changeUserList", list)
-          commit("changeUserCount", listCount)
-          break
-        case "role":
-          commit("changeRoleList", list)
-          commit("changeRoleCount", listCount)
-          break
-      }
+      commit(`change${changePageName}List`, list)
+      commit(`change${changePageName}Count`, listCount)
+      // switch (pageName) {
+      //   case "users":
+      //     commit("changeUserList", list)
+      //     commit("changeUserCount", listCount)
+      //     break
+      //   case "role":
+      //     commit("changeRoleList", list)
+      //     commit("changeRoleCount", listCount)
+      //     break
+      // }
     }
   }
 }

@@ -24,14 +24,13 @@
     <!-- 3. foooter插槽 -->
     <div class="footer">
       <el-pagination
-        v-model:currentPage="currentPage4"
-        v-model:page-size="pageSize4"
+        v-model:currentPage="currentPage"
+        v-model:page-size="pageSize"
         :page-sizes="[100, 200, 300, 400]"
-        :small="small"
+        small="small"
         :disabled="disabled"
-        :background="background"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="total"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       >
@@ -64,15 +63,27 @@ export default defineComponent({
     isShowSelection: {
       type: Boolean,
       default: false
-    }
+    },
+    total: {
+      type: Number,
+      default: 0
+    },
+    disabled: Boolean,
+    handleSizeChange: Function,
+    handleCurrentChange: Function
   },
   emits: ["selectionChange"],
   setup(props, { emit }) {
+    const currentPage = 1
+    const pageSize = 10
+
     const handleSelectionChange = (value: any) => {
       emit("selectionChange", value)
     }
 
     return {
+      currentPage,
+      pageSize,
       handleSelectionChange
     }
   }

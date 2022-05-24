@@ -3,9 +3,9 @@
     <page-search :searchFormConfig="searchFormConfig" />
     <page-content
       :pageContentConfig="pageContentConfig"
-      :tableData="userList"
+      :tableData="usersList"
       :selectionChange="selectionChange"
-      pageName="user"
+      pageName="users"
     />
   </div>
 </template>
@@ -29,7 +29,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const userList = computed(() => store.state.system.userList)
+    const usersList = computed(() => store.state.system.usersList)
     const userCount = computed(() => store.state.system.userCount)
 
     const onEdit = (row: any) => {
@@ -45,7 +45,7 @@ export default defineComponent({
     }
 
     return {
-      userList,
+      usersList,
       userCount,
       onDelete,
       onEdit,
