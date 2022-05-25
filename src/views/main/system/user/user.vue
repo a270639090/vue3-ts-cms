@@ -1,7 +1,12 @@
 <template>
   <div class="user">
-    <page-search :searchFormConfig="searchFormConfig" />
+    <page-search
+      :searchFormConfig="searchFormConfig"
+      @handleResetClick="handleResetClick"
+      @handleQueryClick="handleQueryClick"
+    />
     <page-content
+      ref="pageContentRef"
       :pageContentConfig="pageContentConfig"
       :tableData="usersList"
       :selectionChange="selectionChange"
@@ -11,11 +16,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue"
+import { computed, defineComponent, ref } from "vue"
 
 import { useStore } from "@/store"
-import pageSearch from "@/components/page-search"
-import pageContent from "@/components/page-content"
+import PageSearch from "@/components/page-search"
+import PageContent from "@/components/page-content"
 
 import { searchFormConfig } from "./config/search.config"
 import { pageContentConfig } from "./config/content.config"
@@ -23,33 +28,33 @@ import { pageContentConfig } from "./config/content.config"
 export default defineComponent({
   name: "user",
   components: {
-    pageSearch,
-    pageContent
+    PageSearch,
+    PageContent
   },
   setup() {
     const store = useStore()
-
     const usersList = computed(() => store.state.system.usersList)
     const userCount = computed(() => store.state.system.userCount)
-
-    const onEdit = (row: any) => {
-      console.log(row)
-    }
-
-    const onDelete = (row: any) => {
-      console.log(row)
-    }
 
     const selectionChange = (value: any) => {
       console.log(value)
     }
 
+    const pageContentRef = ref<InstanceType<typeof PageContent>>()
+    const handleResetClick = () => {
+      // ccc
+    }
+    const handleQueryClick = (queryInfo: any) => {
+      pageContentRef.value?.getPageData(queryInfo)
+    }
+
     return {
+      pageContentRef,
       usersList,
       userCount,
-      onDelete,
-      onEdit,
       selectionChange,
+      handleResetClick,
+      handleQueryClick,
       searchFormConfig,
       pageContentConfig
     }

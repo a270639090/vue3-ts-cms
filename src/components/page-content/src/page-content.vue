@@ -28,11 +28,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue"
 import LxTable from "@/base-ui/table"
 
 import { useStore } from "@/store"
-export default {
+export default defineComponent({
   components: {
     LxTable
   },
@@ -41,7 +42,6 @@ export default {
       type: Object,
       required: true
     },
-    selectionChange: Function,
     tableData: {
       type: Array,
       default: () => []
@@ -54,23 +54,42 @@ export default {
   setup(props) {
     const store = useStore()
 
-    store.dispatch("system/getPageListActive", {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+    const onEdit = (row: any) => {
+      console.log(row)
+    }
+    const onDelete = (row: any) => {
+      console.log(row)
+    }
+
+    const selectionChange = () => {
+      console.log("选择框选中")
+    }
+
+    const getPageData = (queryInfo: any = {}) => {
+      store.dispatch("system/getPageListActive", {
+        pageName: props.pageName,
+        queryInfo: {
+          ...queryInfo,
+          offset: 0,
+          size: 10
+        }
+      })
+    }
+    getPageData()
 
     const pageListData = store.getters[`system/pageListData`](props.pageName)
 
     console.log(pageListData, "pageListData")
 
     return {
-      pageListData
+      pageListData,
+      onDelete,
+      onEdit,
+      selectionChange,
+      getPageData
     }
   }
-}
+})
 </script>
 
 <style lang="less" scoped>
